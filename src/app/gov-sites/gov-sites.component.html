@@ -1,0 +1,38 @@
+<br>
+<br>
+<br>
+<div class="fluid container">
+  <br>
+  <p class="page-title">Government Health Information</p>
+  <br>
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label for="exampleDataList" class="form-label"><strong>Select Contry</strong></label>
+            </td>
+            <td>
+              <div *ngIf="mobile == false;else mobileChoose">
+              <input class="form-control" list="datalistOptions" id="exampleDataList" value="{{selectedCountry}}" (change)="changeCountry($event)"placeholder="Type to search...">
+              <button class="btn btn-primary" (click)="clearSearch()">Clear</button>
+              <datalist id="datalistOptions">
+                <option *ngFor="let dropdown of fb.countries;index as i" >{{ dropdown }}</option>
+              </datalist>
+
+            </div>
+            <ng-template #mobileChoose>
+              <Label class="page-text">{{ selectedCountry }}  </Label>
+              <button class="btn btn-primary center" (click)="clickme()">Select Country</button>
+            </ng-template>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+
+
+</div>

@@ -1,0 +1,163 @@
+<br>
+<br>
+<br>
+<div class="fluid container">
+  <br>
+  <p class="text-center page-title"><strong>Welcome to the Long Covid Tracker website.</strong></p>
+  <br>
+  <!-- <ul>
+    <li *ngFor="let item of item$ | async">
+      {{ item.name }}
+    </li>
+  </ul> -->
+  <br>
+  <p class="page-text">Here you will be able to add to the database as well as view whats already in the database on the Dashboard Page.</p>
+  <br>
+  <p class="page-text">If you need to modify an existing entry email me with the Confirmation ID and any changes you want to make, and i can do it manually. Will add feature to change on here in the future.</p>
+  <!-- <p>Enter Confirmation ID to modify existing entry. Leave blank for new entry.</p> -->
+  <!-- <label>Confirmation ID:</label>
+  <input type="text" [(ngModel)]='docID'/>
+  <button (click)="loadRecord()">Load</button>
+  <br> -->
+
+  <table class="table">
+    <thead>
+      <tr>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label class="page-text">Email to send confirmation to: </label>
+            </td>
+            <td>
+              <input class="form-control" placeholder="Email to send Confirmation to" type="text" [value]='to_email' [(ngModel)]='to_email'/>
+            </td>
+          </tr>
+          <tr>
+            <td><label class="page-text">State/Province/Oblates: </label></td>
+            <td>
+              <input class="form-control" placeholder="Province/State" type="text" [value]='localStateProv' [(ngModel)]='localStateProv'/>
+            </td>
+            <td>
+              <label for="exampleDataList" class="form-label"><strong>Select Contry</strong></label>
+            </td>
+            <td>
+              <div *ngIf="mobile == false;else mobileChoose">
+              <input class="form-control" list="datalistOptions" id="exampleDataList" value="{{selectedCountry}}" (change)="changeCountry($event)"  placeholder="Type to search...">
+              <button class="btn btn-primary" (click)="clearCountrySearch()">Clear</button>
+              <datalist id="datalistOptions">
+                <option *ngFor="let dropdown of fb.countries;index as i" (click)="selectCountry(i)">{{ dropdown }}</option>
+              </datalist>
+            </div>
+            <ng-template #mobileChoose>
+              <Label class="page-text">{{ selectedCountry }}  </Label>
+              <button class="btn btn-primary center" (click)="clickme()">Select Country</button>
+            </ng-template>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+
+
+
+<!--
+  <div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>{{ selectedCountry }}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+      <div *ngFor="let dropdown of fb.countries;index as i">
+        <button (click)="selectCountry(i)" ngbDropdownItem>{{ dropdown }}</button>
+        </div>
+    </div>
+  </div> -->
+
+  <table class="table table-striped">
+    <thead>
+      <p class="page-text"> Rate each symptom by severity.</p>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of fb.allSymptoms; index as i">
+        <th class="list-width page-text"><strong>{{ item.name }}</strong></th>
+        <td>
+
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input page-text" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,0)" [value]="this.fb.currentRecord.symptoms[i].rating" checked/>
+            <label class="form-check-label page-text" for="customRadio{{i}}">None</label>
+          </div>
+        </td>
+          <td>
+
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input  page-text" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,1)" [value]="this.fb.currentRecord.symptoms[i].rating"/>
+            <label class="form-check-label  page-text" for="customRadio{{i}}">Light</label>
+          </div>
+        </td>
+        <td>
+
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input page-text" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,2)" [value]="this.fb.currentRecord.symptoms[i].rating"/>
+            <label class="form-check-label page-text" for="customRadio{{i}}">Moderate</label>
+          </div>
+        </td>
+
+          <td>
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input page-text" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,3)" [value]="this.fb.currentRecord.symptoms[i].rating" />
+            <label class="form-check-label page-text" for="customRadio{{i}}">Severe</label>
+          </div>
+        </td>
+
+        <td></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+<!--
+  <li *ngFor="let item of fb.allSymptoms; index as i">
+    <strong>{{ item.name }}</strong>
+    <br>
+
+    <div class="form-check form-check-inline">
+      <input type="radio" class="form-check-input" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,0)" [value]="this.fb.currentRecord.symptoms[i].rating"/>
+      <label class="form-check-label" for="customRadio{{i}}">None</label>
+    </div>
+    <br>
+    <div class="form-check form-check-inline">
+      <input type="radio" class="form-check-input" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,1)" [value]="this.fb.currentRecord.symptoms[i].rating"checked/>
+      <label class="form-check-label" for="customRadio{{i}}">Light</label>
+    </div>
+    <br>
+    <div class="form-check form-check-inline">
+      <input type="radio" class="form-check-input" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,2)" [value]="this.fb.currentRecord.symptoms[i].rating"/>
+      <label class="form-check-label" for="customRadio{{i}}">Moderate</label>
+    </div>
+    <br>
+    <div class="form-check form-check-inline">
+      <input type="radio" class="form-check-input" name="customRadio{{i}}" id="customRadio{{i}}" (click)="select(i,3)" [value]="this.fb.currentRecord.symptoms[i].rating" />
+      <label class="form-check-label" for="customRadio{{i}}">Severe</label>
+    </div>
+    <br>
+    <br>
+  </li> -->
+
+  <!-- <div *ngIf="mobile == false;else mobileChoose"> -->
+  <button class="btn btn-primary center" (click)="saveRecord()">Save & Send</button>
+<!-- </div>
+<ng-template #mobileChoose>
+  <button class="btn btn-primary center" (click)="clickme()">Save & Send2</button>
+</ng-template> -->
+
+  <br>
+  <br>
+  <!-- <li *ngFor="let user of users; index as i">
+    {{i}} -> {{user}}
+
+    <div *ngIf="condition; else elseBlock">Content to render when condition is true.</div>
+    <ng-template #elseBlock>Content to render when condition is false.</ng-template>
+
+
+
+  </li> -->
+
+</div>

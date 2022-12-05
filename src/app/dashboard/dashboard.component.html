@@ -1,0 +1,127 @@
+<br>
+<br>
+<br>
+<div class="fluid container">
+  <br>
+  <p class="text-center page-title"><strong>Long Covid Dashboard</strong></p>
+<br>
+
+<table class="table">
+  <!-- <thead></thead> -->
+  <tbody>
+  <tr>
+    <td>
+  <input class="form-control" placeholder="Province/State" type="text" [(ngModel)]='searchFilter'/>
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="search()">Search Location</button>
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="clearSearch()">Clear Search</button>
+    </td>
+</tr>
+<tr>
+  <!-- <td>
+    <label for="exampleDataList" class="form-label" style="width : 25%">Select Contry</label>
+  </td> -->
+  <td>
+    <div *ngIf="mobile == false;else mobileChoose2">
+    <input class="form-control" list="datalistOptions" id="exampleDataList" value="{{selectedCountry}}" (change)="changeCountry($event)" placeholder="Country">
+    <datalist id="datalistOptions">
+      <option *ngFor="let dropdown of fb.countries;index as i">{{ dropdown }}</option>
+    </datalist>
+  </div>
+  <ng-template #mobileChoose2>
+    <label class="page-text">{{ selectedCountry }}</label>
+  </ng-template>
+
+  </td>
+  <td>
+
+    <div *ngIf="mobile == false;else mobileChoose">
+    <button class="btn btn-primary" (click)="selectCountry()">Search by Country</button>
+  </div>
+    <ng-template #mobileChoose>
+      <!-- <Label class="page-text">{{ selectedCountry }}  </Label> -->
+      <button class="btn btn-primary center" (click)="clickme()">Select Country</button>
+    </ng-template>
+  </td>
+</tr>
+  </tbody>
+</table>
+
+<br>
+
+  <br>
+
+
+<!-- <div ngbDropdown class="d-inline-block">
+  <button type="button" class="btn" id="dropdownBasic1" ngbDropdownToggle>{{ selectedCountry }}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+    <div *ngFor="let dropdown of this.fb.countries;index as i">
+      <button (click)="selectCountry(i)" ngbDropdownItem>{{ dropdown }}</button>
+      </div>
+
+  </div>
+</div> -->
+
+<!-- <br>
+<li *ngFor="let item of fb.allRecords; index as i">
+  {{ item.localStateProv }} -> <img [src]='findCountryFlag(item.location)' class="me-2"
+  style="width: 20px"> {{ item.location}} {{ calculateSeverityScore(item) }}
+
+</li> -->
+<div *ngIf="showAll == true; else elseBlock">
+  <table class="table table-striped page-text">
+    <thead>
+      <tr>
+        <th scope="col">State/Province/Oblates</th>
+        <th scope="col">Country</th>
+        <th scope="col">Severity Score</th>
+        <!-- <th scope="col">Population</th> -->
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of fb.allRecords; index as i">
+      <th scope="row">{{ item.localStateProv }}</th>
+      <td>
+        <img [src]='fb.getCountryFlag(item.location)' class="me-2"
+          style="width: 30px">
+        {{ item.location }}
+      </td>
+      <td>{{ calculateSeverityScore(item) | number }}</td>
+      <!-- <td>{{ country.population | number }}</td> -->
+    </tr>
+  </tbody>
+  </table>
+
+
+</div>
+<ng-template #elseBlock>
+  <table class="table table-striped page-text">
+    <thead>
+      <tr>
+        <th scope="col">State/Province/Oblates</th>
+        <th scope="col">Country</th>
+        <th scope="col">Severity Score</th>
+        <!-- <th scope="col">Population</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of fb.filteredRecords; index as i">
+        <th scope="row">{{ item.localStateProv }}</th>
+        <td>
+          <img [src]='fb.getCountryFlag(item.location)' class="me-2"
+            style="width: 30px">
+          {{ item.location }}
+        </td>
+        <td>{{ calculateSeverityScore(item) | number }}</td>
+        <!-- <td>{{ country.population | number }}</td> -->
+      </tr>
+    </tbody>
+  </table>
+
+
+</ng-template>
+<br>
+</div>
